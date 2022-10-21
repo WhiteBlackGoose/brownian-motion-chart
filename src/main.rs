@@ -79,7 +79,7 @@ fn main() {
     let mut value: f64 = 0.0;
     let normal = rand_distr::Normal::new(0.0, 1.0).unwrap();
     loop {
-        thread::sleep(time::Duration::from_millis(300));
+        thread::sleep(time::Duration::from_millis(100));
 
         value += normal.sample(&mut rand::thread_rng());
         ring.push(value);
