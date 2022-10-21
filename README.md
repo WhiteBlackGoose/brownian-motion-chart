@@ -5,4 +5,10 @@ $$\delta v_t \sim \mathcal{N}(0, t)$$
 
 ![gif with demo](./demo.gif)
 
+### Made with
 
+Literally perfect conditions:
+- Rust
+- NeoVim
+- Debian
+- TUI
