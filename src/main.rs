@@ -3,55 +3,12 @@ use crossterm::{
     terminal, cursor, style::{self, Stylize}
 };
 use std::io::{stdout, Write};
-use std::vec::Vec;
 use std::{thread, time};
 use rand_distr::Distribution;
 
-struct Ring<T> {
-    vec: Vec<T>,
-    ptr: usize
-}
 
-impl<T: Clone> Ring<T> {
-    fn new(len: usize, def: T) -> Self {
-        Ring {
-            vec: vec![def; len],
-            ptr: 0
-        }
-    }
-    fn push(&mut self, input: T) {
-        self.vec[self.ptr] = input;
-        self.ptr += 1;
-        if self.ptr >= self.vec.len() {
-            self.ptr = 0;
-        }
-    }
-}
-
-struct RingIter<'a, T> {
-    ptr: usize,
-    ring: &'a Ring<T>
-}
-
-impl<'a, T: Copy> Iterator for RingIter<'a, T> {
-    type Item = T;
-    fn next(&mut self) -> Option<Self::Item> {
-        self.ptr += 1;
-        if self.ptr == self.ring.vec.len() {
-            self.ptr = 0;
-        }
-        if self.ptr == self.ring.ptr {
-            return Option::None;
-        }
-        Option::Some(self.ring.vec[self.ptr])
-    }
-}
-
-impl<T> Ring<T> {
-    fn iter(&self) -> RingIter<T> {
-        RingIter { ptr : self.ptr, ring : self }
-    }
-}
+pub mod ring;
+use ring::Ring;
 
 
 fn draw_graph(ring: &Ring<f64>, height: i16, std: &mut std::io::Stdout) {
